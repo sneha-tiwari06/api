@@ -20,7 +20,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-app.use(cors());
+const corsOptions = {
+  origin: function (origin, callback) {
+    callback(null, origin); // Allow all origins
+  },
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json({ limit: '100mb' }));
 app.use(cookieParser());
 
